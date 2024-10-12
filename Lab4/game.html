@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet" />
+    <title>Dice Game</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+      body {
+        font-family: 'Courier New', Courier, monospace;
+        background-color: #e0eafc; 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        overflow: hidden;
+      }
+
+      .container {
+        text-align: center;
+        background-color: #cfd8dc; 
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        transition: all 0.5s ease;
+      }
+
+      h1 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+        color: #455a64;
+      }
+
+      .dice-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .dice img {
+        width: 100px;
+        margin: 10px;
+      }
+
+      .logo img {
+        width: 150px;
+        cursor: pointer;
+      }
+
+      #result {
+        margin-top: 30px;
+        font-size: 1.2rem;
+        color: #37474f;
+      }
+
+      #counter {
+        font-size: 1.2rem;
+        margin-top: 10px;
+        color: #37474f;
+      }
+
+      .btn-reset {
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #607d8b;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem;
+      }
+
+      .btn-reset:hover {
+        background-color: #546e7a;
+      }
+
+      .text-above-logo {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+        color: #37474f;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container text-center">
+      <h1 id="title">Try try try</h1>
+      <p class="text-above-logo">click me</p>
+      <div class="dice-container">
+        <div class="dice">
+          <img src="images/dice1.png" alt="Dice 1" id="lhsDice" />
+        </div>
+        <div class="logo">
+          <img src="images/diceeLogo.png" alt="Logo" id="logoButton" />
+        </div>
+        <div class="dice">
+          <img src="images/dice2.png" alt="Dice 2" id="rhsDice" />
+        </div>
+      </div>
+      <p id="result"></p>
+      <p id="counter"></p>
+      <button class="btn-reset" id="resetButton">Reset the counter</button>
+    </div>
+
+    <script>
+      let rollCount = 0;
+
+      document.getElementById("logoButton").addEventListener("click", rollDice);
+
+      document.getElementById("resetButton").addEventListener("click", resetCounter);
+
+      function rollDice() {
+        var randomNumber1 = Math.floor(Math.random() * 6) + 1;
+        var randomNumber2 = Math.floor(Math.random() * 6) + 1;
+
+        document.getElementById("lhsDice").setAttribute("src", `images/dice${randomNumber1}.png`);
+        document.getElementById("rhsDice").setAttribute("src", `images/dice${randomNumber2}.png`);
+
+        var sum = randomNumber1 + randomNumber2;
+        var resultMessage = `You rolled a ${randomNumber1} and a ${randomNumber2}. Sum: ${sum}.`;
+
+        if (randomNumber1 === randomNumber2) {
+          resultMessage += " You got a double!";
+        }
+
+        document.getElementById("result").textContent = resultMessage;
+
+        rollCount++;
+        document.getElementById("counter").textContent = `You have rolled the dice ${rollCount} times.`;
+      }
+
+      function resetCounter() {
+        rollCount = 0;
+        document.getElementById("counter").textContent = "Counter reset!";
+        document.getElementById("result").textContent = "";
+        document.getElementById("lhsDice").setAttribute("src", "images/dice1.png");
+        document.getElementById("rhsDice").setAttribute("src", "images/dice2.png");
+      }
+    </script>
+  </body>
+</html>
